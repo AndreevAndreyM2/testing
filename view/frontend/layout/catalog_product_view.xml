@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="Magento\Catalog\Block\Product\View\Attributes" name="product.mycustom.attribute" as="club_attribute" template="Rlab_ShoppingClub::club_attribute.phtml" after="product.info.price" >
+            <arguments>
+                <argument name="viewModel" xsi:type="object">Rlab\ShoppingClub\ViewModel\Data</argument>
+            </arguments>
+        </block>
+        </referenceContainer>
+    </body>
+</page>
