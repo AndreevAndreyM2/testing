@@ -5,7 +5,8 @@ define([
         'use strict';
         return Component.extend({
             initialize: function () {
-                this.example = customerData.get('example');
+                this.shoppingclub = customerData.get('shoppingclub');
+                customerData.reload(['shoppingclub']);
                 this._super();
             },
         });

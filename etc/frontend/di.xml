@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
     <type name="Magento\Newsletter\Controller\Subscriber\Confirm">
-        <plugin name="Rlab_ShoppingClub_Plugin" type="Rlab\ShoppingClub\Plugin\SetInGroupPlugin" sortOrder="10" disabled="false"  />
+        <plugin name="SetInShoppingClubGroup_Plugin" type="Rlab\ShoppingClub\Plugin\SetInGroupPlugin" sortOrder="10" disabled="false"  />
     </type>
     <type name="Magento\Newsletter\Controller\Manage\Save">
-        <plugin name="Rlab_DeleteFromGroup_Plugin" type="Rlab\ShoppingClub\Plugin\DeleteFromGroupPlugin" sortOrder="9" disabled="false"  />
+        <plugin name="DeleteFromGroup_Plugin" type="Rlab\ShoppingClub\Plugin\DeleteFromGroupPlugin" sortOrder="9" disabled="false"  />
     </type>
     <type name="Magento\Customer\CustomerData\SectionPoolInterface">
         <arguments>
             <argument name="sectionSourceMap" xsi:type="array">
-                <item name="example" xsi:type="string">Rlab\ShoppingClub\CustomerData\Example</item>
+                <item name="shoppingclub" xsi:type="string">Rlab\ShoppingClub\CustomerData\ShoppingClubData</item>
             </argument>
         </arguments>
     </type>

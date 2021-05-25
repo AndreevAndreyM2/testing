@@ -1,0 +1,14 @@
+<!-- ko if: shoppingclub().isLoggedIn && shoppingclub().checkGroup -->
+<a data-bind="attr: { href: SubscribeLink, title: 'subscribe' }">
+    Join Shopping Club
+</a>
+<!-- /ko -->
+<!-- ko ifnot: shoppingclub().isLoggedIn -->
+<a data-bind="attr: { href: RegistrationLink, title: 'registration' }">
+    Create Shopping Club Account
+</a>
+<!-- /ko -->
+<!-- ko if: shoppingclub().checkGroup -->
+<span data-bind="i18n: label"></span>
+<!-- /ko -->
+

@@ -1,21 +1,15 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 namespace Rlab\ShoppingClub\Block\Account;
 
 use Magento\Customer\Model\Context;
+use Magento\Customer\Model\Registration;
+use Magento\Customer\Model\Url;
 use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Element\Html\Link;
 
-/**
- * Customer register link
- *
- * @api
- * @SuppressWarnings(PHPMD.DepthOfInheritance)
- * @since 100.0.2
- */
-class RegisterLink extends \Magento\Framework\View\Element\Html\Link
+
+class RegisterLink extends Link
 {
 
     /**
@@ -31,34 +25,35 @@ class RegisterLink extends \Magento\Framework\View\Element\Html\Link
     protected $httpContext;
 
     /**
-     * @var \Magento\Customer\Model\Registration
+     * @var Registration
      */
-    protected $_registration;
+    protected $registration;
 
     /**
-     * @var \Magento\Customer\Model\Url
+     * @var Url
      */
-    protected $_customerUrl;
+    protected $customerUrl;
 
     /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Framework\App\Http\Context $httpContext
-     * @param \Magento\Customer\Model\Registration $registration
-     * @param \Magento\Customer\Model\Url $customerUrl
+     * @param Registration $registration
+     * @param Url $customerUrl
+     * @param UrlInterface $urlBuilder
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\App\Http\Context $httpContext,
-        \Magento\Customer\Model\Registration $registration,
-        \Magento\Customer\Model\Url $customerUrl,
+        Registration $registration,
+        Url $customerUrl,
         UrlInterface $urlBuilder,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->httpContext = $httpContext;
-        $this->_registration = $registration;
-        $this->_customerUrl = $customerUrl;
+        $this->registration = $registration;
+        $this->customerUrl = $customerUrl;
         $this->urlBuilder = $urlBuilder;
     }
 
@@ -71,11 +66,11 @@ class RegisterLink extends \Magento\Framework\View\Element\Html\Link
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     protected function _toHtml()
     {
-        if (!$this->_registration->isAllowed()
+        if (!$this->registration->isAllowed()
             || $this->httpContext->getValue(Context::CONTEXT_AUTH)
         ) {
             return '';

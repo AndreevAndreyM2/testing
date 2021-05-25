@@ -1,29 +1,30 @@
 <?php
-$viewModel = $block->getData('viewModel');
-$_product = $block->getProduct();
-$attribute = $_product->getResource()->getAttribute('club_attribute');
-$attr_value = $attribute->getFrontend()->getValue($_product);
-?>
-<div class="attribute value">
+/** @var Attributes $block */
 
-    <?php if ($viewModel->isLoggedIn()): ?>
-    <?php if($viewModel->getCustomerGroup() !=="Shopping Club"): ?>
-            <div id="example-header" data-bind="scope: 'example'">
-                <span data-bind="text: example().active"></span></div>
-        <?php endif; ?>
-    <?php else: ?>
-        <?php echo $attr_value ?>
-        <div id="example-headjer" data-bind="scope: 'example'">
-            <span data-bind="text: example().test"></span></div>
-    <?php endif; ?>
+use Magento\Catalog\Block\Product\View\Attributes;
+
+$product = $block->getProduct();
+$attribute = $product->getResource()->getAttribute('club_attribute');
+$attr_value = $attribute->getFrontend()->getValue($product);
+$RegistrationLink = $this->getUrl('shoppingclub/account/create');
+$SubscribeLink = $this->getUrl('newsletter/manage');
+?>
+<div data-bind="scope: 'shoppingclub'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
 </div>
 <script type="text/x-magento-init">
 {
     "*": {
         "Magento_Ui/js/core/app": {
             "components": {
-                "example": {
-                    "component": "Rlab_ShoppingClub/js/example"
+                "shoppingclub": {
+                    "component": "Rlab_ShoppingClub/js/shoppingclub",
+                    "config": {
+                        "template": "Rlab_ShoppingClub/shoppingclub",
+                        "label": "<?= $attr_value ?>",
+                        "RegistrationLink": "<?= $RegistrationLink ?>",
+                        "SubscribeLink": "<?= $SubscribeLink ?>"
+                   }
                 }
             }
         }
