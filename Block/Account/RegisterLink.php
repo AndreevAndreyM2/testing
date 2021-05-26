@@ -49,7 +49,8 @@ class RegisterLink extends Link
         Url $customerUrl,
         UrlInterface $urlBuilder,
         array $data = []
-    ) {
+    )
+    {
         parent::__construct($context, $data);
         $this->httpContext = $httpContext;
         $this->registration = $registration;
@@ -62,7 +63,7 @@ class RegisterLink extends Link
      */
     public function getHref()
     {
-        return  $this->urlBuilder->getUrl('shoppingclub/account/create');
+        return $this->urlBuilder->getUrl('shoppingclub/account/create');
     }
 
     /**

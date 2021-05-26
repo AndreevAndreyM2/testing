@@ -10,9 +10,16 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\State\InputMismatchException;
 use Magento\Newsletter\Controller\Manage\Save;
+use Psr\Log\LoggerInterface;
 
 class DeleteFromGroupPlugin
 {
+
+    /**
+     * @var LoggerInterface
+     * @noinspection PhpMultipleClassDeclarationsInspection
+     */
+    protected $logger;
 
     /**
      * @var CustomerRepositoryInterface
@@ -34,16 +41,20 @@ class DeleteFromGroupPlugin
      * @param CustomerRepositoryInterface $customerRepositoryInterface
      * @param Session $customerSession
      * @param CollectionFactory $customerGroupFactory
+     * @param LoggerInterface $logger
+     * @noinspection PhpMultipleClassDeclarationsInspection
      */
     public function __construct(
         CustomerRepositoryInterface $customerRepositoryInterface,
         Session $customerSession,
-        CollectionFactory $customerGroupFactory
-
-    ) {
+        CollectionFactory $customerGroupFactory,
+        LoggerInterface $logger
+    )
+    {
         $this->customerRepositoryInterface = $customerRepositoryInterface;
         $this->customerSession = $customerSession;
         $this->customerGroupFactory = $customerGroupFactory;
+        $this->logger = $logger;
     }
 
     /**
@@ -58,9 +69,13 @@ class DeleteFromGroupPlugin
     public function afterExecute(Save $subject, $result)
     {
         $customerId = $this->customerSession->getCustomer()->getId();
-        $customer = $this->customerRepositoryInterface->getById($customerId);
-            $customer->setGroupId(1);
-            $this->customerRepositoryInterface->save($customer);
+        try {
+            $customer = $this->customerRepositoryInterface->getById($customerId);
+        } catch (NoSuchEntityException | LocalizedException $e) {
+            $this->logger->critical($e->getMessage());
+        }
+        $customer->setGroupId(1);
+        $this->customerRepositoryInterface->save($customer);
 
         return $result;
     }

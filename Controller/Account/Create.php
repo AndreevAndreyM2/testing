@@ -39,7 +39,8 @@ class Create extends AbstractAccountAlias implements HttpGetActionInterface
         Session $customerSession,
         PageFactory $resultPageFactory,
         Registration $registration
-    ) {
+    )
+    {
         $this->session = $customerSession;
         $this->resultPageFactory = $resultPageFactory;
         $this->registration = $registration;

@@ -8,7 +8,7 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
-class ShoppingClubData  implements SectionSourceInterface
+class ShoppingClubData implements SectionSourceInterface
 {
 
     /**
@@ -29,7 +29,8 @@ class ShoppingClubData  implements SectionSourceInterface
     public function __construct(
         Session $customerSession,
         GroupRepositoryInterface $groupRepository
-    ) {
+    )
+    {
         $this->customerSession = $customerSession;
         $this->groupRepository = $groupRepository;
     }
@@ -60,10 +61,9 @@ class ShoppingClubData  implements SectionSourceInterface
     {
         $customerGroupId = $this->customerSession->getCustomer()->getGroupId();
         $group = $this->groupRepository->getById($customerGroupId);
-
-        if ($group->getCode()!=="Shopping Club"){
+        if ($group->getCode() !== "Shopping Club") {
             return true;
         }
-            return null;
+        return null;
     }
 }
